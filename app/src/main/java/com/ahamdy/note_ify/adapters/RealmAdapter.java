@@ -24,7 +24,7 @@ import io.realm.RealmResults;
 
 
 public class RealmAdapter extends RealmRecyclerViewAdapter {
-    public static final String EXTRA_NOTE_UUID = "com.ahamdy.note_ify";
+    public static final String EXTRA_NOTE_POSITION = "com.ahamdy.note_ify";
     private RealmResults<RealmNote> notes;
     private Context context;
     private ArrayList<RealmNote> selectedData;

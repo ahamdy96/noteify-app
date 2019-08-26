@@ -14,4 +14,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="bla_bla_bla">dksdhfushfiwehsfiyegfiukewhfweufyhweasiukfhweuifuhweuyfguwefgkldkf lreikbnrvldfknvoirldfknvlerkrdfvnrkltdfnblkrdfnbrlktdfbnlkdfbn lrdfibnirondbolkdnfbolkdfnbolkdfngoer;klngvelkrnvoeilknvoeilkrnvflnkb lerkgnekvrlnvklernklvnrewlkvn3rqklnvkerlnv</string>
+    <string name="note_date">date created</string>
 </resources>

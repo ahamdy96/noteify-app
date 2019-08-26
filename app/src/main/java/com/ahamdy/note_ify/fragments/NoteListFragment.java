@@ -21,7 +21,6 @@ import com.ahamdy.note_ify.R;
 import com.ahamdy.note_ify.adapters.RealmAdapter;
 import com.ahamdy.note_ify.interfaces.ActionModeCallback;
 import com.ahamdy.note_ify.interfaces.FABAddNoteClickListener;
-import com.ahamdy.note_ify.interfaces.RecyclerItemClickListener;
 import com.ahamdy.note_ify.models.RealmDB;
 import com.ahamdy.note_ify.models.RealmNote;
 import com.ahamdy.note_ify.network.NoteifyService;
@@ -32,8 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import io.realm.RealmRecyclerViewAdapter;
-
-import static com.ahamdy.note_ify.NoteifyApplication.getAppContext;
 
 public class NoteListFragment extends Fragment {
     private static RealmRecyclerViewAdapter adapter;
@@ -49,7 +46,6 @@ public class NoteListFragment extends Fragment {
     public static void multi_select(int position) {
         if (actionMode != null) {
             RealmNote note = (RealmNote) getAdapter().getItem(position);
-            Toast.makeText(getAppContext(), "note with title " + note.getTitle() + " is pressed", Toast.LENGTH_SHORT).show();
             if (note.isSelected()) {
                 selectedNotesCounter--;
             } else {
@@ -102,9 +98,9 @@ public class NoteListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         ArrayList selectedData = new ArrayList<RealmNote>();
         ActionModeCallback actionModeCallback = new ActionModeCallback(contextMenue, selectedData);
-        adapter = new RealmAdapter(RealmDB.getAllNotes(), true, true);
+        adapter = new RealmAdapter(RealmDB.getAllNotes(), true, true, actionModeCallback);
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, actionModeCallback));
+//        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, actionModeCallback));
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -135,20 +131,5 @@ public class NoteListFragment extends Fragment {
             NoteifyService.getInstance().loadNotes(strings[0]);
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //                    Intent i = new Intent(getAppContext(), NoteListActivity.class);
-                    //                    i.putExtra("isNotesLoaded", notesloaded);
-                    //                    startActivity(i);
-                    //                    finish();
-                }
-            });
-        }
     }
-
-
 }

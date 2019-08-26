@@ -2,23 +2,17 @@ package com.ahamdy.note_ify.interfaces;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.ActionMode;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ahamdy.note_ify.activities.NotePagerActivity;
-import com.ahamdy.note_ify.models.RealmNote;
+import com.ahamdy.note_ify.R;
 
-import static com.ahamdy.note_ify.NoteifyApplication.getAppContext;
-import static com.ahamdy.note_ify.adapters.RealmAdapter.EXTRA_NOTE_POSITION;
 import static com.ahamdy.note_ify.fragments.NoteListFragment.getActionMode;
-import static com.ahamdy.note_ify.fragments.NoteListFragment.getAdapter;
 import static com.ahamdy.note_ify.fragments.NoteListFragment.isMultiSelect;
 import static com.ahamdy.note_ify.fragments.NoteListFragment.multi_select;
 import static com.ahamdy.note_ify.fragments.NoteListFragment.setActionMode;
@@ -55,7 +49,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
         View childView = rv.findChildViewUnder(e.getX(), e.getY());
 
         if (childView != null && mGestureDetector.onTouchEvent(e)) {
-            onItemClick(childView, rv.getChildAdapterPosition(childView));
+            onItemClick(childView, childView.findViewById(R.id.expand_card_view_button), rv.getChildAdapterPosition(childView));
         }
 
         return false;
@@ -71,16 +65,27 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
 
     }
 
-    public void onItemClick(View view, int position) {
-        if (isMultiSelect()) {
-            multi_select(position);
-        } else {
-            Intent i = new Intent(context, NotePagerActivity.class);
-            RealmNote note = ((RealmNote) getAdapter().getItem(position));
-            i.putExtra(EXTRA_NOTE_POSITION, position);
-            Toast.makeText(getAppContext(), "note with title " + note.getTitle() + " is shown", Toast.LENGTH_SHORT).show();
-            context.startActivity(i);
-        }
+    public void onItemClick(View parent, View view, int position) {
+        //        if (isMultiSelect()) {
+        //            multi_select(position);
+        //        } else {
+        //            if (view.getId() == R.id.expand_card_view_button) {
+        //                if (parent.findViewById(R.id.note_body).getVisibility() == View.VISIBLE) {
+        //                    TransitionManager.beginDelayedTransition((ViewGroup) parent.getParent(), new AutoTransition());
+        //                    parent.findViewById(R.id.note_body).setVisibility(View.GONE);
+        //                } else {
+        //                    TransitionManager.beginDelayedTransition((ViewGroup) parent.getParent(), new AutoTransition());
+        //                    parent.findViewById(R.id.note_body).setVisibility(View.VISIBLE);
+        //                }
+        //            } else {
+        //            }
+        //            Intent i = new Intent(context, NotePagerActivity.class);
+        //            RealmNote note = ((RealmNote) getAdapter().getItem(position));
+        //            i.putExtra(EXTRA_NOTE_POSITION, position);
+        //            Toast.makeText(getAppContext(), "note with title " + note.getTitle() + " is shown", Toast.LENGTH_SHORT).show();
+        //            context.startActivity(i);
+        //        }
+
     }
 
     public void onItemLongClick(View view, int position) {

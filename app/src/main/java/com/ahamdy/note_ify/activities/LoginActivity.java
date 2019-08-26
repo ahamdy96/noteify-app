@@ -20,6 +20,7 @@ import static com.ahamdy.note_ify.NoteifyApplication.getAppContext;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ProgressBar loadingProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.register);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
+        loadingProgressBar = findViewById(R.id.loading);
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -89,7 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                         Intent i = new Intent(getAppContext(), NoteListActivity.class);
                         startActivity(i);
                         finish();
-                    }else{
+                    } else {
+                        loadingProgressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -113,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
                         Intent i = new Intent(getAppContext(), NoteListActivity.class);
                         startActivity(i);
                         finish();
-                    }else{
+                    } else {
+                        loadingProgressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Register Failed", Toast.LENGTH_SHORT).show();
                     }
                 }

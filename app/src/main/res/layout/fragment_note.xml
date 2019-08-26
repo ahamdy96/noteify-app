@@ -17,6 +17,7 @@
             android:autofillHints="@string/title_hint"
             android:hint="@string/title_hint"
             android:inputType="text"
+            android:backgroundTint="#2A3B3F5C"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -24,8 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:background="@drawable/note_body_bg"
             android:autofillHints="@string/body_hint"
+            android:padding="8dp"
             android:gravity="top"
             android:hint="@string/body_hint"
             android:inputType="text"
@@ -42,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:maxImageSize="30dp"
+        app:srcCompat="@drawable/ic_save_black_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

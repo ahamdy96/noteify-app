@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.ahamdy.note_ify.network.NoteifyService;
 
+import java.util.Date;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -32,6 +34,14 @@ public class RealmDB {
         realm.copyToRealmOrUpdate(note);
         realm.commitTransaction();
         NoteifyService.getInstance().updateNote(note.getId(), note);
+    }
+
+    public static void updateNoteAlarm(String noteId, Date noteAlarmTime) {
+        RealmNote note = realm.where(RealmNote.class).equalTo("_id", noteId).findFirst();
+        realm.beginTransaction();
+        note.setAlarmTime(noteAlarmTime);
+        realm.copyToRealmOrUpdate(note);
+        realm.commitTransaction();
     }
 
     public static RealmNote getNote(String id) {

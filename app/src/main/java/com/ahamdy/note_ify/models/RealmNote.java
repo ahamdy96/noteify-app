@@ -1,7 +1,6 @@
 package com.ahamdy.note_ify.models;
 
 import java.util.Date;
-import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
@@ -11,9 +10,10 @@ import io.realm.annotations.Required;
 public class RealmNote extends RealmObject {
     @Ignore
     private boolean isChecked;
-//    @Required
+    //    @Required
     private boolean isSelected;
-    @Required @PrimaryKey
+    @Required
+    @PrimaryKey
     private String _id;
     @Required
     private String title;
@@ -23,8 +23,9 @@ public class RealmNote extends RealmObject {
     private String dateCreated;
     @Required
     private String dateModified;
+    private Date alarmTime = null;
 
-    public RealmNote(){
+    public RealmNote() {
         this.title = "";
         this.body = "";
         this.dateCreated = new Date().toString();
@@ -32,7 +33,7 @@ public class RealmNote extends RealmObject {
         isSelected = false;
     }
 
-    public RealmNote(String title, String body){
+    public RealmNote(String title, String body) {
         this.title = title;
         this.body = body;
         this.dateCreated = new Date().toString();
@@ -94,5 +95,13 @@ public class RealmNote extends RealmObject {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public Date getAlarmTime() {
+        return alarmTime;
+    }
+
+    public void setAlarmTime(Date alarmTime) {
+        this.alarmTime = alarmTime;
     }
 }

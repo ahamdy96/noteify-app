@@ -3,6 +3,7 @@ package com.ahamdy.note_ify.activities;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -24,9 +25,12 @@ public class NotePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_pager);
 
-        pager = findViewById(R.id.activity_note_pager_view_pagerr);
+        Toolbar toolbar = findViewById(R.id.note_toolbar);
+        setSupportActionBar(toolbar);
 
-        FragmentManager fm = getSupportFragmentManager();
+        pager = findViewById(R.id.activity_note_pager_view_pager);
+
+        final FragmentManager fm = getSupportFragmentManager();
 
         pager.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override

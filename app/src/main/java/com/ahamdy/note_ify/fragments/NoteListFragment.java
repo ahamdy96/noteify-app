@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,8 +49,13 @@ public class NoteListFragment extends Fragment {
             } else {
                 selectedNotesCounter++;
             }
-            RealmDB.selectNote(note.getId(), !note.isSelected());
-            actionMode.setTitle("" + selectedNotesCounter);
+
+            if (selectedNotesCounter < 1)
+                actionMode.finish();
+            else {
+                RealmDB.selectNote(note.getId(), !note.isSelected());
+                actionMode.setTitle("" + selectedNotesCounter);
+            }
         }
     }
 
@@ -87,9 +90,6 @@ public class NoteListFragment extends Fragment {
 
         new LoadNotes().execute(RealmDB.getToken());
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
         FloatingActionButton fabAddNote = view.findViewById(R.id.fab_add_note);
         fabAddNote.setOnClickListener(new FABAddNoteClickListener(getContext()));
 
@@ -109,7 +109,7 @@ public class NoteListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

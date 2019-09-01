@@ -17,8 +17,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-import static com.ahamdy.note_ify.models.RealmDB.getToken;
-
 public interface WebAppService {
     @GET("/note/{query}")
     Call<List<RealmNote>> getNotes(
@@ -38,7 +36,7 @@ public interface WebAppService {
     @FormUrlEncoded
     Call<NoteId> updateNote(
             @Header("Authorization") String token,
-            @Field("id") String id,
+            @Field("_id") String id,
             @Field("title") String title,
             @Field("body") String body,
             @Field("dateModified") String dateModified);
@@ -46,7 +44,7 @@ public interface WebAppService {
     @DELETE("/note/delete")
     Call<NoteId> deleteNote(
             @Header("Authorization") String token,
-            @Query("id") String id);
+            @Query("_id") String id);
 
     @POST("/user/register")
     @FormUrlEncoded

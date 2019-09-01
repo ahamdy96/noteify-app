@@ -71,9 +71,11 @@ public class RealmAdapter extends RealmRecyclerViewAdapter {
                     if (noteView.findViewById(R.id.note_body).getVisibility() == View.VISIBLE) {
                         TransitionManager.beginDelayedTransition(parent, new AutoTransition());
                         noteView.findViewById(R.id.note_body).setVisibility(View.GONE);
+                        ((ImageButton) view).setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
                     } else {
                         TransitionManager.beginDelayedTransition(parent, new AutoTransition());
                         noteView.findViewById(R.id.note_body).setVisibility(View.VISIBLE);
+                        ((ImageButton) view).setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
                     }
                 }
             }

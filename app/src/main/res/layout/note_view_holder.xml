@@ -17,12 +17,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/note_container"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".9"
+            android:layout_weight="10"
             android:background="@drawable/corner"
             android:clipToPadding="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
             <TextView
                 android:id="@+id/vh_note_title"
@@ -64,15 +66,13 @@
 
         <ImageButton
             android:id="@+id/expand_card_view_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".1"
+            android:layout_weight="1"
             android:background="@color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitStart"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

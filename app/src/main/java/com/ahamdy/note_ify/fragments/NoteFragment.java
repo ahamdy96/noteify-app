@@ -1,6 +1,9 @@
 package com.ahamdy.note_ify.fragments;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,18 +21,21 @@ import androidx.fragment.app.FragmentManager;
 import com.ahamdy.note_ify.R;
 import com.ahamdy.note_ify.models.RealmDB;
 import com.ahamdy.note_ify.models.RealmNote;
+import com.ahamdy.note_ify.utils.AlarmReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static android.content.ContentValues.TAG;
+import static com.ahamdy.note_ify.NoteifyApplication.getAppContext;
 import static com.ahamdy.note_ify.fragments.DatePickerFragment.EXTRA_CALENDAR;
 import static com.ahamdy.note_ify.fragments.DatePickerFragment.EXTRA_DATE;
 
 public class NoteFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
+    private static AlarmManager alarmManager = (AlarmManager) getAppContext().getSystemService(Context.ALARM_SERVICE);
     private final String DIALOG_TIME = "DialogAlarmTime";
     private final String DIALOG_DATE = "DialogAlarmDate";
     private Date alarmTime = null;
@@ -70,20 +76,26 @@ public class NoteFragment extends Fragment {
         fabSaveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getAppContext(), AlarmReceiver.class);
                 if (noteId == null) {
                     RealmNote note = new RealmNote(noteTitle.getText().toString(), noteBody.getText().toString());
                     note.setAlarmTime(alarmTime);
                     RealmDB.addNote(note);
                     Log.w("ADD", "add note requested");
-                    getActivity().finish();
+                    intent.putExtra("NOTE_TITLE", noteTitle.getText().toString());
+                    intent.putExtra("NOTE_BODY", noteBody.getText().toString());
                 } else {
                     RealmNote note = new RealmNote(noteTitle.getText().toString(), noteBody.getText().toString());
                     note.setId(noteId);
                     note.setAlarmTime(alarmTime);
                     Log.w("UPDATE", "update note requested");
                     RealmDB.updateNote(note);
-                    getActivity().finish();
+                    intent.putExtra("NOTE_TITLE", note.getTitle());
+                    intent.putExtra("NOTE_BODY", note.getBody());
                 }
+                getActivity().finish();
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getAppContext(), 0, intent, 0);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime.getTime(), pendingIntent);
             }
         });
         return view;
